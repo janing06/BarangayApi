@@ -22,6 +22,7 @@
      <div id="map" style="height: 100vh; width: 100%"></div>
 
      <script>
+          
           const map = L.map('map').setView([11.598020660483073,  124.47957744386065], 11)
 
           L.tileLayer('https://tile.openstreetmap.de/{z}/{x}/{y}.png', {
@@ -37,9 +38,14 @@
                L.geoJson(data).addTo(map)
           }
 
+
+
+
           const data = JSON.parse('{{ data|safe }}')
           console.log(data)
-          L.geoJson(data).addTo(map)
+          const geojson = L.geoJson(data)
+
+          geojson.addTo(map)
      </script>
 </body>
 </html>

@@ -83,35 +83,16 @@ WSGI_APPLICATION = 'core.wsgi.application'
 #     }
 # }
 
-# import dj_database_url
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'barangay_api_db',
-#         'USER': 'barangay_api_db_user',
-#         'PASSWORD': '15Nr2Ggg1OGmLaQHADXTa2TYaOdItwLM',
-#         'HOST': 'dpg-cjbibjrbq8nc73d3cc40-a.singapore-postgres.render.com',
-#         'PORT': '',
-#     }
-# }
 
 import environ
-
-env = environ.Env()
-
-environ.Env.read_env()
 import dj_database_url
+env = environ.Env()
+environ.Env.read_env()
 
 db_config = dj_database_url.parse(env('DATABASE_URL'))
-
-# Enable the PostGIS extension
 db_config['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
-
 db_config['CONN_MAX_AGE'] = 60
 
-
-# Update the DATABASES setting
 DATABASES = {
     'default': db_config
 }
