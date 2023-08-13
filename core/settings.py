@@ -84,17 +84,29 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # }
 
 
-import environ
-import dj_database_url
-env = environ.Env()
-environ.Env.read_env()
+# import environ
+# import dj_database_url
+# env = environ.Env()
+# environ.Env.read_env()
 
-db_config = dj_database_url.parse(env('DATABASE_URL'))
-db_config['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
-db_config['CONN_MAX_AGE'] = 60
+# db_config = dj_database_url.parse('postgres://barangay_api_db_user:15Nr2Ggg1OGmLaQHADXTa2TYaOdItwLM@dpg-cjbibjrbq8nc73d3cc40-a.singapore-postgres.render.com/barangay_api_db')
+# db_config['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
+# db_config['CONN_MAX_AGE'] = 60
+
+# DATABASES = {
+#     'default': db_config
+# }
+
 
 DATABASES = {
-    'default': db_config
+    'default': {
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'NAME': 'barangay_api_db',
+        'USER': 'barangay_api_db_user',
+        'PASSWORD': '15Nr2Ggg1OGmLaQHADXTa2TYaOdItwLM',
+        'HOST': 'dpg-cjbibjrbq8nc73d3cc40-a.singapore-postgres.render.com',
+        'PORT': '5432',
+    }
 }
 
 
