@@ -6,6 +6,7 @@ class BarangaySerializer(GeoFeatureModelSerializer):
         model = Barangay
         fields = '__all__'
         geo_field = 'geom'
+
         
 
         

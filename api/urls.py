@@ -1,9 +1,9 @@
 from django.urls import path,include
 from api import views
-from rest_framework.routers import DefaultRouter
+from rest_framework import routers
 
 
-router = DefaultRouter()
+router = routers.DefaultRouter()
 router.register(r'barangays', views.BarangayViewSet)
 
 urlpatterns = [

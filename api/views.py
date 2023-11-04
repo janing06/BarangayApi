@@ -6,6 +6,8 @@ from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from rest_framework import viewsets
 import json
+from django.core.serializers import serialize
+
 
 class BarangayViewSet(viewsets.ModelViewSet):
     queryset = Barangay.objects.all().order_by('barangay')
@@ -13,9 +15,16 @@ class BarangayViewSet(viewsets.ModelViewSet):
 
 
 def index(request):
+    
     barangays = Barangay.objects.all().order_by('barangay')
     serializer = BarangaySerializer(barangays, many=True)
-    return render(request, 'api/index.html',{'data': json.dumps(serializer.data)})
+    
+    geojson_data = serialize('geojson', Barangay.objects.all(), geometry_field='geom', fields=('code'))    
+    
+    print(geojson_data)
+    
+    return render(request, 'api/index.html',{'data': json.dumps(geojson_data)})
+ 
  
 class SingleBarangayGeoJSONView(APIView):
     def get(self, request, code):
@@ -27,7 +36,7 @@ class SingleBarangayGeoJSONView(APIView):
 class AllBarangayGeoJSONView(APIView):
     def get(self, request):
         barangays = Barangay.objects.order_by('barangay')
-        serializer = BarangaySerializer(barangays, many=True)
+        serializer = BarangaySerializer(barangays, many=True)   
         return Response(serializer.data)
     
     
